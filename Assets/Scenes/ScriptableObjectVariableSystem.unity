@@ -417,10 +417,18 @@ MonoBehaviour:
     useConstant: 1
     constantValue: Test
     variableAsset: {fileID: 0}
-  Vector3Reference:
-    useConstant: 0
+  vector3Reference:
+    useConstant: 1
     constantValue: {x: 0, y: 0, z: 0}
-    variableAsset: {fileID: 11400000, guid: 21f30e72f679a71438b02a084c077e49, type: 2}
+    variableAsset: {fileID: 0}
+  customTypeExampleReference:
+    useConstant: 0
+    constantValue:
+      customIntValue: 0
+      customFloatValue: 0
+      customBoolValue: 0
+      customSringValue: 
+    variableAsset: {fileID: 11400000, guid: 45485d20ec020354f9d2004eb0b10d74, type: 2}
 --- !u!4 &1561812520
 Transform:
   m_ObjectHideFlags: 0

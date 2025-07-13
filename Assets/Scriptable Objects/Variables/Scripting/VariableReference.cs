@@ -1,6 +1,14 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Used to reference a specific variable or use a constant instead. 
+/// This allows for flexibility when designing because it allows to quickly test
+/// different values without changing the original variable which would affect all
+/// instances that use it.
+/// </summary>
+
+
 [Serializable]
 public class VariableReference<T>
 {

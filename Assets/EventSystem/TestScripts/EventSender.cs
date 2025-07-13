@@ -23,10 +23,17 @@ public class EventSender : MonoBehaviour
     [SerializeField] private string stringTest = "Test string";
     [SerializeField] private CustomTypeExample customTypeExample;
 
+    [Header("Values from Variable References")]
+    [SerializeField] private VariableReference<int> intVariable;
+    [SerializeField] private VariableReference<float> floatVariable;
+    [SerializeField] private VariableReference<bool> boolVariable;
+    [SerializeField] private VariableReference<string> stringVariable;
+    [SerializeField] private VariableReference<CustomTypeExample> CustomTypeExampleVariable;
+
 
     public void OnInteract()
     {
-        //dataGameEvent.TriggerEvent(eventData);
+        //Trigger events to pass the test values from the inspector
 
         intEventTest.Raise(intTest);
         floatEventTest.Raise(floatTest);
@@ -35,5 +42,11 @@ public class EventSender : MonoBehaviour
         voidEventTest.Raise();
         customTypeExampleEventTest.Raise(customTypeExample);
 
+        //Raise events using variable references
+        intEventTest.Raise(intVariable.Value);
+        floatEventTest.Raise(floatVariable.Value);
+        boolEventTest.Raise(boolVariable.Value);
+        stringEventTest.Raise(stringVariable.Value);
+        customTypeExampleEventTest.Raise(CustomTypeExampleVariable.Value);
     }
 }

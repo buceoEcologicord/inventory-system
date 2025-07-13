@@ -503,10 +503,34 @@ MonoBehaviour:
   boolTest: 1
   stringTest: Test string
   customTypeExample:
-    customIntValue: 3
-    customFloatValue: 6.2
+    customIntValue: 4
+    customFloatValue: 2.5
     customBoolValue: 0
-    customSringValue: Custom Example test string
+    customSringValue: Hello
+  intVariable:
+    useConstant: 0
+    constantValue: 0
+    variableAsset: {fileID: 11400000, guid: 61fde92a9551ef44289cd09d62b11462, type: 2}
+  floatVariable:
+    useConstant: 0
+    constantValue: 0
+    variableAsset: {fileID: 11400000, guid: c6185f659abf3c14596341dacec27236, type: 2}
+  boolVariable:
+    useConstant: 0
+    constantValue: 0
+    variableAsset: {fileID: 11400000, guid: 94ec172a903e291418b79315d6fdac9e, type: 2}
+  stringVariable:
+    useConstant: 0
+    constantValue: 
+    variableAsset: {fileID: 11400000, guid: 1ad53b1b5f7e891418008196d7148bfd, type: 2}
+  CustomTypeExampleVariable:
+    useConstant: 0
+    constantValue:
+      customIntValue: 0
+      customFloatValue: 0
+      customBoolValue: 0
+      customSringValue: 
+    variableAsset: {fileID: 11400000, guid: 45485d20ec020354f9d2004eb0b10d74, type: 2}
 --- !u!4 &1523395892
 Transform:
   m_ObjectHideFlags: 0
@@ -560,7 +584,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1796571041}
     m_Modifications:
-    - target: {fileID: 1782764669844388067, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
+    - target: {fileID: 4231283720635350250, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
       propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1796571042}
@@ -864,10 +888,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1796571041}
     m_Modifications:
-    - target: {fileID: 2636965861814138935, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
-      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1796571042}
     - target: {fileID: 5938693519053539708, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -911,6 +931,34 @@ PrefabInstance:
     - target: {fileID: 8023531875654422489, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
       propertyPath: m_Name
       value: StringListener
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200363141965525088, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
+      propertyPath: gameEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 918831df87f69e343bcff9258aae6a4b, type: 2}
+    - target: {fileID: 9200363141965525088, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
+      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200363141965525088, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
+      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1796571042}
+    - target: {fileID: 9200363141965525088, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
+      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200363141965525088, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
+      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DebugEventData
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200363141965525088, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
+      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EventReceiver, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9200363141965525088, guid: f77e9567908e62547bc3ae563e144ed8, type: 3}
+      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
