@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0866f4874b2333c448719730c39333e4, type: 3}
   m_Name: MediumPotionItem
   m_EditorClassIdentifier: 
-  itemName: Medium heal
+  itemName: Medium healing potion
+  sprite: {fileID: 0}
+  itemCategory: 0
   stackable: 1
   description: heals a bit more
   healAmount: 20

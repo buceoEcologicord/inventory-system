@@ -1,0 +1,5 @@
+Pending:
+- Auto Item type generator (Potion, weapon, stamp)
+- Auto Game Event Generator
+- Auto Inventory Manager triage when adding a new inventory
+  -- public enum stand alone script for category may be used to assign to inventories and items to do the match

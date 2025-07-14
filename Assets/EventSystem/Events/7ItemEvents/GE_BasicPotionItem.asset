@@ -9,13 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0866f4874b2333c448719730c39333e4, type: 3}
-  m_Name: BasicPotionItem
+  m_Script: {fileID: 11500000, guid: b3c7ad23a7eda544280062d98fec7ccd, type: 3}
+  m_Name: GE_BasicPotionItem
   m_EditorClassIdentifier: 
-  itemName: Basic healing Potion
-  sprite: {fileID: 0}
-  itemCategory: 0
-  stackable: 1
-  description: heals a bit
-  healAmount: 10
-  maxHeal: 0

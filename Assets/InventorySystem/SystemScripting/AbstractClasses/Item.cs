@@ -10,8 +10,9 @@ public abstract class Item : ScriptableObject
 {
     [SerializeField] public string itemName = "Item";
     [SerializeField] public Sprite sprite;
+    [SerializeField] public InventoryCategory itemCategory;
     [SerializeField] public bool stackable = true;
 
-    [TextArea(3, 10)]
+    [TextArea(3, 3)]
     [SerializeField] private string description = "Item function and characteristics are: ";
 }

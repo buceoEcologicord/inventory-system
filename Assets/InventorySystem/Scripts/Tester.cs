@@ -1,16 +1,17 @@
+using ScriptableObjects.Events;
 using UnityEngine;
 
 public class Tester : MonoBehaviour
 {
-    [SerializeField] private ItemsCollection potionsCollection;
-    [SerializeField] private Item potionItem;
-    [SerializeField] private Item potionItem2;
-    [SerializeField] private Item potionItem3;
-    void Start()
+    [SerializeField] private CollectibleItem potionItem;
+    [SerializeField] private CollectibleItem stampItem;
+    [SerializeField] private CollectibleItem albumStickerItem;
+    [SerializeField] private ItemEvent itemGameEvent;
+    public void OnInteract()
     {
-        potionsCollection.itemsCollection.Add(potionItem);
-        potionsCollection.itemsCollection.Add(potionItem2);
-        potionsCollection.itemsCollection.Add(potionItem3);
+        itemGameEvent.Raise(potionItem.collectibleItem);
+        itemGameEvent.Raise(stampItem.collectibleItem);
+        itemGameEvent.Raise(albumStickerItem.collectibleItem);
     }
 
 }
