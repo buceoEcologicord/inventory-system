@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryName: General Inventory
   category: 2
-  itemsCollected: []
+  itemsCollected:
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  hasItem: 1
+  currentCount: 1
   description: 'Inventory to store or record: '
   uniqueItems: 1
   unlimitedTotalItems: 0

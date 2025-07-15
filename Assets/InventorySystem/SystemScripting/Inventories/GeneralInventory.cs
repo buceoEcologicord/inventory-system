@@ -29,12 +29,19 @@ public class GeneralInventory : Inventory
 
     public override void AddToInventory(Item item)
     {
+        itemsCollected.Add(item);
+        countStack[item.itemName] = currentCount + 1;
+        Debug.Log($"{item.name} added to {category} inventory.");
+    }
+
+    public override bool TryAddToInventory(Item item)
+    {
         UpdateDictionary();
 
-        bool hasItem = countStack.ContainsKey(item.itemName);
-        int currentCount = hasItem ? countStack[item.itemName] : 0;
+        hasItem = countStack.ContainsKey(item.itemName);
+        currentCount = hasItem ? countStack[item.itemName] : 0;
                 
-        Debug.Log($"Current count of {item.itemName}: {currentCount}");
+        //Debug.Log($"Current count of {item.itemName}: {currentCount}");
 
         // Adds all items if total items are unlimited, as long as it's not unique items and item is already collected
         if (unlimitedTotalItems)
@@ -43,17 +50,19 @@ public class GeneralInventory : Inventory
             if ((uniqueItems && !hasItem))
             {
                 // Add item and stack
-                itemsCollected.Add(item);
-                countStack[item.itemName] = currentCount + 1;
-                Debug.Log($"{item.name} added to {category} inventory.");
+                AddToInventory(item);
+                return true;
             }
             else if (!uniqueItems)
             {
                 // Add item and stack
-                itemsCollected.Add(item);
-                countStack[item.itemName] = currentCount + 1;
-                Debug.Log($"{item.name} added to {category} inventory.");
+                AddToInventory(item);
+                return true;
             }
+
+         Debug.LogWarning("Not added to inventory: Is repeated Unique");
+         return false;
+
         }        
         else if (itemsCollected.Count < maxTotalItems) // Check if inventory is not full
         {
@@ -64,85 +73,88 @@ public class GeneralInventory : Inventory
                     if (unlimitedStack && countStack.Count < maxTotalSlots)
                     {
                         // Add item and stack
-                        itemsCollected.Add(item);
-                        countStack[item.itemName] = currentCount + 1;
-                        Debug.Log($"{item.name} added to {category} inventory.");
+                        AddToInventory(item);
+                        return true;
                     }
                     else if (unlimitedStack && countStack.Count == maxTotalSlots && countStack.ContainsKey(item.itemName))
                     {
                         // Add item and stack
-                        itemsCollected.Add(item);
-                        countStack[item.itemName] = currentCount + 1;
-                        Debug.Log($"{item.name} added to {category} inventory.");
+                        AddToInventory(item);
+                        return true;
                     }
                     else if (currentCount < itemStackLimit && countStack.Count < maxTotalSlots)
                     {
                         // Add item and stack
-                        itemsCollected.Add(item);
-                        countStack[item.itemName] = currentCount + 1;
-                        Debug.Log($"{item.name} added to {category} inventory.");
+                        AddToInventory(item);
+                        return true;
                     }
                     else if (currentCount < itemStackLimit && countStack.Count == maxTotalSlots && countStack.ContainsKey(item.itemName))
                     {
                         // Add item and stack
-                        itemsCollected.Add(item);
-                        countStack[item.itemName] = currentCount + 1;
-                        Debug.Log($"{item.name} added to {category} inventory.");
+                        AddToInventory(item);
+                        return true;
                     }
+
+                    Debug.LogWarning("Not added to inventory: Is repeated Unique or slots are full, or stacks are full or inventory limit reached");
+                    return false; 
+
                 }
                 else if (!uniqueItems)
                 {
                     if (unlimitedStack && countStack.Count < maxTotalSlots)
                     {
                         // Add item and stack
-                        itemsCollected.Add(item);
-                        countStack[item.itemName] = currentCount + 1;
-                        Debug.Log($"{item.name} added to {category} inventory.");
+                        AddToInventory(item);
+                        return true;
                     }
                     else if (unlimitedStack && countStack.Count == maxTotalSlots && countStack.ContainsKey(item.itemName))
                     {
                         // Add item and stack
-                        itemsCollected.Add(item);
-                        countStack[item.itemName] = currentCount + 1;
-                        Debug.Log($"{item.name} added to {category} inventory.");
+                        AddToInventory(item);
+                        return true;
                     }
                     else if (currentCount < itemStackLimit && countStack.Count < maxTotalSlots)
                     {
                         // Add item and stack
-                        itemsCollected.Add(item);
-                        countStack[item.itemName] = currentCount + 1;
-                        Debug.Log($"{item.name} added to {category} inventory.");
+                        AddToInventory(item);
+                        return true;
                     }
                     else if (currentCount < itemStackLimit && countStack.Count == maxTotalSlots && countStack.ContainsKey(item.itemName))
                     {
                         // Add item and stack
-                        itemsCollected.Add(item);
-                        countStack[item.itemName] = currentCount + 1;
-                        Debug.Log($"{item.name} added to {category} inventory.");
+                        AddToInventory(item);
+                        return true;
                     }
                 }
+
+                Debug.LogWarning("Not added to inventory: Slots are full, or stacks are full or inventory limit reached");
+                return false;
+
             }
             else if (itemsCollected.Count < maxTotalSlots)
             {
                 if (uniqueItems && !hasItem)
                 {
                     // Add item, also add in dictionary even if it doesn't stack
-                    itemsCollected.Add(item);
-                    countStack[item.itemName] = currentCount + 1;
-                    Debug.Log($"{item.name} added to {category} inventory.");
+                    AddToInventory(item);
+                    return true;
                 }
                 else if (!uniqueItems)
                 {
                     // Add item, also add in dictionary even if it doesn't stack
-                    itemsCollected.Add(item);
-                    countStack[item.itemName] = currentCount + 1;
-                    Debug.Log($"{item.name} added to {category} inventory.");
+                    AddToInventory(item);
+                    return true;
                 }
             }
+
+            Debug.LogWarning("Not added to inventory: Repeated Unique item or Slots are full");
+            return false;
+
         }
         else
         {
             Debug.LogWarning("Item can't be added to Inventory, it may have full slots, full stack of that item or is a Unique inventory and the item is already collected");
+            return false;
         }
 
         

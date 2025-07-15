@@ -1,4 +1,7 @@
 Pending:
+- Event Try collect + Inventory added to avoid destruction of items not added to inv
+- Remove items from inventory
+
 - Auto Item type generator (Potion, weapon, stamp)
 - Auto Game Event Generator
 - Auto Inventory Manager triage when adding a new inventory

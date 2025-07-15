@@ -17,7 +17,8 @@ public abstract class Inventory : ScriptableObject
     [SerializeField] public List<Item> itemsCollected = new List<Item>();
 
     public Dictionary<string, int> countStack = new Dictionary<string, int>();
-
+    public bool hasItem;
+    public int currentCount;
 
     [TextArea(3, 10)]
     [SerializeField] private string description = "Inventory to store or record: ";
@@ -28,5 +29,7 @@ public abstract class Inventory : ScriptableObject
     /// (eg. GeneralInventory.AddToInventory())
     /// that way scripts only need to reference the Inventory class but will execute the method of the corresponding child class from where they are calling
     /// </summary>
+    public virtual bool TryAddToInventory(Item item) { return false; }
+
     public virtual void AddToInventory(Item item) { }
 }

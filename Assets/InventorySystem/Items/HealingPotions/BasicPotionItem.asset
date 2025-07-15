@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BasicPotionItem
   m_EditorClassIdentifier: 
   itemName: Basic healing Potion
-  sprite: {fileID: 0}
+  sprite: {fileID: 3490558418983231677, guid: c3bfa76165bfcce4b9e49b28b9acbb50, type: 3}
   itemCategory: 0
   stackable: 1
   description: heals a bit
