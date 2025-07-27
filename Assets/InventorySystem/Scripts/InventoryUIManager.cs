@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 /// <summary>
 /// 
@@ -26,6 +27,7 @@ public class InventoryUIManager : MonoBehaviour
 
     public void UpdateInventoryUI()
     {
+        ClearEmptySlots();
         itemsCollected = inventory.itemsCollected; // Gets items present in enventory and updates the local list to manage items
 
         if(inventory.itemsStack)
@@ -76,5 +78,23 @@ public class InventoryUIManager : MonoBehaviour
             }
         }
                        
+    }
+
+    private void ClearEmptySlots()
+    {
+        for (int i = slotsCreated.Count - 1; i >= 0; i--)
+        {
+            var slot = slotsCreated[i];
+            var itemName = slot.GetComponent<SlotButton>().item.itemName;
+
+            if (!inventory.countStack.ContainsKey(itemName))
+            {
+                Debug.Log("slot is empty");
+                slotsCreated.RemoveAt(i);
+                itemsCreated.Remove(itemName);
+                Destroy(slot);
+            }
+        }
+
     }
 }
