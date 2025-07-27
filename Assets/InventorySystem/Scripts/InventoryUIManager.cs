@@ -34,9 +34,11 @@ public class InventoryUIManager : MonoBehaviour
             //Debug.Log("ItemStack: true");
             ClearEmptySlots();
 
+            int index = -1;
 
             foreach (Item item in itemsCollected)
             {
+                index++;
                 //Debug.Log($"ForEach item: {item.itemName}");
 
                 if (!itemsCreated.Contains(item.itemName))
@@ -47,7 +49,7 @@ public class InventoryUIManager : MonoBehaviour
                     slotsCreated.Add(createdSlot);
                     createdSlot.SetActive(true);
                     createdSlot.GetComponent<Image>().sprite = item.sprite;
-                    createdSlot.GetComponent<SlotButton>().item = item;
+                    createdSlot.GetComponent<SlotButton>().itemIndex = index;
                     itemsCreated.Add(item.itemName);
                     createdSlot.GetComponentInChildren<TextMeshProUGUI>().text = $"{inventory.countStack[ item.itemName]}";
                     
@@ -55,7 +57,7 @@ public class InventoryUIManager : MonoBehaviour
                 else
                 {
                     //Debug.Log($"itemsCreated contains {item.itemName}");
-                    int index = itemsCreated.IndexOf(item.itemName);
+                    int itemsCreatedIndex = itemsCreated.IndexOf(item.itemName);
 
                     //Debug.Log($"index: {index}");
                     inventory.UpdateDictionary();
@@ -63,15 +65,18 @@ public class InventoryUIManager : MonoBehaviour
 
                     //Debug.Log($"index: {index}, text: {text}");
 
-                    slotsCreated[index].GetComponentInChildren<TextMeshProUGUI>().text = text;
+                    slotsCreated[itemsCreatedIndex].GetComponentInChildren<TextMeshProUGUI>().text = text;
                 }               
             }
         }
         else
         {
             RefreshUI();
+                int index = -1;
             foreach (Item item in itemsCollected)
             {
+                index++;
+
                 Debug.Log($"START UDATE FOR ITEM: {item.itemName}");
                 
                 GameObject createdSlot = Instantiate(inventorySlot, gridParent);
@@ -82,8 +87,7 @@ public class InventoryUIManager : MonoBehaviour
                 Debug.Log("Set active");
                 createdSlot.GetComponent<Image>().sprite = item.sprite;
                 Debug.Log("sprite assigned");
-                createdSlot.GetComponent<SlotButton>().item = item;
-                Debug.Log($"item assigned to: {createdSlot.name} = {createdSlot.GetComponent<SlotButton>().item.itemName}");
+                createdSlot.GetComponent<SlotButton>().itemIndex = index;
                 itemsCreated.Add(item.itemName);
                 Debug.Log("added to items created");
                 Debug.Log($"FINISH UPDATE FOR ITEM: {item.itemName}");
@@ -99,7 +103,6 @@ public class InventoryUIManager : MonoBehaviour
         for (int i = slotsCreated.Count - 1; i >= 0; i--)
         {
             
-                Debug.Log($"ForEach slot call Destroy: {slotsCreated[i].GetComponent<SlotButton>().item.itemName}");
                 Destroy(slotsCreated[i]);
                 Debug.Log("Destroyed succesfully");
             }
@@ -116,16 +119,28 @@ public class InventoryUIManager : MonoBehaviour
             var slot = slotsCreated[i];
             //Debug.Log($"SlotCreated: {slotsCreated[i].name}");
             //Debug.Log($"Slot item name: {slot.GetComponent<SlotButton>().item.itemName}");
-
-            var itemName = slot.GetComponent<SlotButton>().item.itemName;
-
-            if (!inventory.countStack.ContainsKey(itemName))
+            Debug.Log(slot.GetComponent<SlotButton>().itemIndex);
+            if(slot.GetComponent<SlotButton>().itemIndex > 0 && slot.GetComponent<SlotButton>().itemIndex < slotsCreated.Count)
             {
-                //Debug.Log("slot is empty");
-                slotsCreated.RemoveAt(i);
-                itemsCreated.Remove(itemName);
+                var itemName = itemsCollected[slot.GetComponent<SlotButton>().itemIndex].itemName;
+
+                if (!inventory.countStack.ContainsKey(itemName))
+                {
+                    //Debug.Log("slot is empty");
+                    slotsCreated.RemoveAt(i);
+                    itemsCreated.Remove(itemName);
+                    Destroy(slot);
+                }
+
+            }
+            else
+            {
+                slotsCreated.Clear();
+                itemsCreated.Clear();
                 Destroy(slot);
             }
+
+            
         }
 
     }

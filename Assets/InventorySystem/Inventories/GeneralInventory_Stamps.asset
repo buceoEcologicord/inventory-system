@@ -17,12 +17,9 @@ MonoBehaviour:
   OnInventoryChanged: {fileID: 11400000, guid: ebc8973bc08d0f34486a68372b1337dd, type: 2}
   itemsCollected:
   - {fileID: 11400000, guid: f2461959175908d4c864b12ab9991177, type: 2}
-  - {fileID: 11400000, guid: f2461959175908d4c864b12ab9991177, type: 2}
   - {fileID: 11400000, guid: 607f948e2f31d8140ad66266783d2eaf, type: 2}
-  - {fileID: 11400000, guid: 607f948e2f31d8140ad66266783d2eaf, type: 2}
-  - {fileID: 11400000, guid: f2461959175908d4c864b12ab9991177, type: 2}
   description: 'Inventory to store or record: '
-  uniqueItems: 0
+  uniqueItems: 1
   unlimitedTotalItems: 0
   itemsStack: 0
   unlimitedStack: 0

@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemID: 
   itemName: Yolo Sticker
   sprite: {fileID: -7669990234729027438, guid: 57349629604a34243aa33e0f93e098b0, type: 3}
-  itemCategory: 2
+  itemCategory: 0
   stackable: 0
   description: 'Item function and characteristics are: '
   albumStickerSprite: {fileID: 0}

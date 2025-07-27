@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class SlotButton : MonoBehaviour, IPointerClickHandler
 {
-    public Item item; // Item to be set by InventoryUIManager
+    public int itemIndex; // Item to be set by InventoryUIManager
     Inventory inventory;
 
     private void Start()
@@ -18,6 +18,6 @@ public class SlotButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if(inventory != null) 
-            inventory.RemoveFromInventory(item);
+            inventory.RemoveFromInventory(itemIndex);
     }
 }

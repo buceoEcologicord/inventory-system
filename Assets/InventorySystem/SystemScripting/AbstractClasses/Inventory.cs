@@ -43,10 +43,11 @@ public abstract class Inventory : ScriptableObject
         OnInventoryChanged?.Raise(); //Review this code is still needed!
         //Debug.Log($"{item.name} added to {category} inventory.");
     }
-    public virtual void RemoveFromInventory(Item item) 
+    public virtual void RemoveFromInventory(int itemIndex) 
     {
-        if (itemsCollected.Remove(item))
+        if (itemIndex >= 0 && itemIndex < itemsCollected.Count  )
         {
+            itemsCollected.RemoveAt(itemIndex);
             UpdateDictionary();
             OnInventoryChanged?.Raise();
         }
