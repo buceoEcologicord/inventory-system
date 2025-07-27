@@ -1,6 +1,7 @@
 Pending:
 - Inventory UI
- -- Fix UI for when items don't stack
+ -- When more than one type of object in inventory:
+Adds a slot per every count until item count and doesn't erease it. Example if there are 4 items of Rum adds: Rum1, Rum2, Rum3, Rum4. Also the buttons are not directly related to the object
 
 - Savesystem complete review pending:
 - (Revisar saveHandler) En build guarda el json solo si le doy al botón, no cada vez que colecta un item.

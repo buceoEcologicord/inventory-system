@@ -32,8 +32,8 @@ public class InventoryUIManager : MonoBehaviour
         if(inventory.itemsStack)
         {
             //Debug.Log("ItemStack: true");
-            ClearEmptySlots();
-
+            //ClearEmptySlots();
+            RefreshUI();
             int index = -1;
 
             foreach (Item item in itemsCollected)
@@ -112,6 +112,7 @@ public class InventoryUIManager : MonoBehaviour
         
     }
 
+    //APPARENTLY NOT NEEDED, DELETE?
     private void ClearEmptySlots()
     {
         for (int i = slotsCreated.Count - 1; i >= 0; i--)

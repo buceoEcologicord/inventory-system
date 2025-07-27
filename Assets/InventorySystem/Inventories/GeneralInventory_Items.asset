@@ -19,7 +19,7 @@ MonoBehaviour:
   description: 'Inventory to store or record: '
   uniqueItems: 0
   unlimitedTotalItems: 0
-  itemsStack: 0
+  itemsStack: 1
   unlimitedStack: 0
   maxTotalSlots: 20
   itemStackLimit: 20
