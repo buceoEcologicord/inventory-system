@@ -18,5 +18,5 @@ MonoBehaviour:
   itemCategory: 1
   stackable: 0
   description: 'Item function and characteristics are: '
-  stampSprite: {fileID: 3490558418983231677, guid: c3bfa76165bfcce4b9e49b28b9acbb50, type: 3}
+  stampSprite: {fileID: -5600456472141597053, guid: 625abb9db5afe6a4ab3d252c4f55cd82, type: 3}
   stampLocation: Map location

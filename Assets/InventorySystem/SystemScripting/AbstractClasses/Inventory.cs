@@ -38,7 +38,7 @@ public abstract class Inventory : ScriptableObject
         itemsCollected.Add(item);
         UpdateDictionary();
 
-        Debug.Log(countStack[item.itemName]);
+        //Debug.Log(countStack[item.itemName]);
 
         OnInventoryChanged?.Raise(); //Review this code is still needed!
         //Debug.Log($"{item.name} added to {category} inventory.");

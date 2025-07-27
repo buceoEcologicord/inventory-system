@@ -59,12 +59,12 @@ public class GeneralInventory : Inventory
             // Try to add into an existing stack
             if (hasStack && canExtendStack)
             {
-                Debug.Log("item countStack in GI before AddToInventory: " + countStack[item.itemName]);
+                //Debug.Log("item countStack in GI before AddToInventory: " + countStack[item.itemName]);
 
                 AddToInventory(item);
-                Debug.Log("item countStack in GI after AddToInventory: " + countStack[item.itemName]);
+                //Debug.Log("item countStack in GI after AddToInventory: " + countStack[item.itemName]);
 
-                Debug.Log("hasStack && canExtendStack");
+                //Debug.Log("hasStack && canExtendStack");
                 return true;
             }
 
@@ -72,7 +72,7 @@ public class GeneralInventory : Inventory
             if (!hasStack && canCreateNewStack)
             {
                 AddToInventory(item);
-                Debug.Log("!hasStack && canCreateNewStack");
+                //Debug.Log("!hasStack && canCreateNewStack");
                 return true;
             }
 
@@ -89,9 +89,9 @@ public class GeneralInventory : Inventory
             if (underSlotLimit)
             {
                 AddToInventory(item);
-                Debug.Log("underSlotLimit");
-                Debug.Log($"UnlimitedTotalItems {unlimitedTotalItems}");
-                Debug.Log($"current slots {totalSlots}, max slots {maxTotalSlots}");
+                //Debug.Log("underSlotLimit");
+                //Debug.Log($"UnlimitedTotalItems {unlimitedTotalItems}");
+                //Debug.Log($"current slots {totalSlots}, max slots {maxTotalSlots}");
 
                 return true;
             }

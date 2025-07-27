@@ -1,7 +1,6 @@
 Pending:
 - Inventory UI
-  -- Refactor code for inventory add, remove and stack
-    -- Rn if item removed it's not erased from the UI because is not removed from UIManager List:slotsCreated, neither from itemsCreated
+ -- Fix UI for when items don't stack
 
 - Savesystem complete review pending:
 - (Revisar saveHandler) En build guarda el json solo si le doy al botón, no cada vez que colecta un item.
