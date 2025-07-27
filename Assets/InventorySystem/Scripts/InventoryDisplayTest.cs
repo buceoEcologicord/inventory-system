@@ -2,7 +2,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class InventoryDisplay : MonoBehaviour
+/// <summary>
+/// Just a test displayer of all inventories (of an Inventory manager) in plain text
+/// </summary>
+
+
+
+public class InventoryDisplayTest : MonoBehaviour
 {
     public TextMeshProUGUI inventoryDisplay;
     public List< Inventory> inventories = new List<Inventory>();

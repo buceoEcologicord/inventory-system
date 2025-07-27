@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2c9d797b8a6a945ae22824a50428cd, type: 3}
   m_Name: CherryTownStamp
   m_EditorClassIdentifier: 
+  ItemID: 
   itemName: Cherry Town Stamp
-  sprite: {fileID: 0}
+  sprite: {fileID: -5600456472141597053, guid: 625abb9db5afe6a4ab3d252c4f55cd82, type: 3}
   itemCategory: 1
   stackable: 0
   description: 'Item function and characteristics are: '

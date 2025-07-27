@@ -12,13 +12,15 @@ using UnityEngine.InputSystem;
 /// Is here instead of using Inventory manager to allow inventory manager 
 /// to manage inventories outside the player prefab  
 /// i.e to manage inventories from different player characters or other circumstances
+/// 
+/// Remember: to add a Player Input Component to this same object in the inspector
 /// </summary>
 
 public class ItemCollector : MonoBehaviour
 {
     [SerializeField] private Collider2D playerCollider;
     [SerializeField] private GameObject interactionSign;
-    [SerializeField] private ListOfGameObjectEvent listOfGameObjectEvent;
+    [SerializeField] private ListOfGameObjectEvent listOfCollectibleGameObjectsEvent;
     [SerializeField] private bool collectOnContact;
 
     private List<GameObject> collectiblesGameObjects = new List<GameObject>();
@@ -34,14 +36,15 @@ public class ItemCollector : MonoBehaviour
         interactionSign.gameObject.SetActive(false);
     }
     private void OnTriggerEnter2D(Collider2D collision)
-    {        
+    {   
+        //Check for collectible items in range and add them (through event system) if collect on contact is true, else, wait for Interact action to add them
         if (collision.GetComponentInChildren<CollectibleItem>())
         {
-            collectiblesGameObjects.Add(collision.gameObject);
+            collectiblesGameObjects.Add(collision.gameObject); //Adds collectible to temporary list that allows to decide if items should be added on contact or wait until Interact button is pressed
 
             if (collectOnContact)
             {
-                listOfGameObjectEvent.Raise(collectiblesGameObjects);                 
+                listOfCollectibleGameObjectsEvent.Raise(collectiblesGameObjects);                 
             }
             else
             {
@@ -66,6 +69,6 @@ public class ItemCollector : MonoBehaviour
 
     public void OnInteract()
     {
-        listOfGameObjectEvent.Raise(collectiblesGameObjects);        
+        listOfCollectibleGameObjectsEvent.Raise(collectiblesGameObjects);        
     }    
 }

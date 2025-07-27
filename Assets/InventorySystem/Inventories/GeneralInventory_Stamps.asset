@@ -16,8 +16,6 @@ MonoBehaviour:
   category: 1
   OnInventoryChanged: {fileID: 11400000, guid: ebc8973bc08d0f34486a68372b1337dd, type: 2}
   itemsCollected: []
-  hasItem: 1
-  currentCount: 1
   description: 'Inventory to store or record: '
   uniqueItems: 1
   unlimitedTotalItems: 0

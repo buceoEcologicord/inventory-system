@@ -19,11 +19,11 @@ public abstract class Inventory : ScriptableObject
     [SerializeField] public List<Item> itemsCollected = new List<Item>();
 
     public Dictionary<string, int> countStack = new Dictionary<string, int>();
-    public bool hasItem;
-    public int currentCount;
+
 
     [TextArea(3, 10)]
     [SerializeField] private string description = "Inventory to store or record: ";
+
 
     /// <summary>
     /// This is a virtual, when called will actually call the childs method.

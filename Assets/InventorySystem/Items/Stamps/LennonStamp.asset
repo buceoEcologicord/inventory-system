@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemID: 
   itemName: LennonStamp
-  sprite: {fileID: 0}
+  sprite: {fileID: 3490558418983231677, guid: c3bfa76165bfcce4b9e49b28b9acbb50, type: 3}
   itemCategory: 1
   stackable: 0
   description: 'Item function and characteristics are: '
