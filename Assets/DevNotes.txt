@@ -1,5 +1,11 @@
 Pending:
-- Event Try collect + Inventory added to avoid destruction of items not added to inv
+- Inventory UI
+  -- Refactor code for inventory add, remove and stack
+    -- Rn if item removed it's not erased from the UI because is not removed from UIManager List:slotsCreated, neither from itemsCreated
+
+- Savesystem complete review pending:
+- (Revisar saveHandler) En build guarda el json solo si le doy al botón, no cada vez que colecta un item.
+- (Revisar saveHandler) Al abrir el build se limpia el json. 
 - Remove items from inventory
 
 - Auto Item type generator (Potion, weapon, stamp)

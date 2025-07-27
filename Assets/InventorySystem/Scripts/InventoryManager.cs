@@ -6,7 +6,8 @@ using UnityEngine;
 /// </summary>
  
 
-// Set itemEventListener and boolEventListener to activate all functionalities
+// Set itemEventListener and
+// Listener to activate all functionalities
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private List<Inventory> inventories = new List<Inventory>();    
@@ -20,7 +21,6 @@ public class InventoryManager : MonoBehaviour
             if(AddItemToCorrectInventory(collectiblesInRange[i].GetComponentInChildren<CollectibleItem>().collectibleItem))
             {
                 Destroy(collectiblesInRange[i]);
-
             }
 
         }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c248993cd07bf4aa49d9b259c2b9ab, type: 3}
   m_Name: GeneralInventory_Stamps
   m_EditorClassIdentifier: 
-  inventoryName: General Inventory
+  inventoryName: Stamps Inventory
   category: 1
-  itemsCollected:
-  - {fileID: 11400000, guid: 607f948e2f31d8140ad66266783d2eaf, type: 2}
+  OnInventoryChanged: {fileID: 11400000, guid: ebc8973bc08d0f34486a68372b1337dd, type: 2}
+  itemsCollected: []
   hasItem: 1
   currentCount: 1
   description: 'Inventory to store or record: '

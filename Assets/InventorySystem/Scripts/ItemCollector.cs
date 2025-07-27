@@ -18,7 +18,6 @@ public class ItemCollector : MonoBehaviour
 {
     [SerializeField] private Collider2D playerCollider;
     [SerializeField] private GameObject interactionSign;
-    [SerializeField] private BoolEvent boolEvent;
     [SerializeField] private ListOfGameObjectEvent listOfGameObjectEvent;
     [SerializeField] private bool collectOnContact;
 

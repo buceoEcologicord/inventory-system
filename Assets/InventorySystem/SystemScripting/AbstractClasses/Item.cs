@@ -8,6 +8,7 @@ using UnityEngine;
 
 public abstract class Item : ScriptableObject 
 {
+    [SerializeField] public string ItemID;
     [SerializeField] public string itemName = "Item";
     [SerializeField] public Sprite sprite;
     [SerializeField] public InventoryCategory itemCategory;

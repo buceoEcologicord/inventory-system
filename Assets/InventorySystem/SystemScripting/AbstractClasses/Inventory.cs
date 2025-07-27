@@ -1,3 +1,4 @@
+using ScriptableObjects.Events;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public abstract class Inventory : ScriptableObject
 {
     [SerializeField] public string inventoryName = "General Inventory";
     [SerializeField] public InventoryCategory category;
+    [SerializeField] public VoidEvent OnInventoryChanged; // "Raised whenever Add/Remove/Clear runs"    
     [SerializeField] public List<Item> itemsCollected = new List<Item>();
 
     public Dictionary<string, int> countStack = new Dictionary<string, int>();
@@ -31,5 +33,42 @@ public abstract class Inventory : ScriptableObject
     /// </summary>
     public virtual bool TryAddToInventory(Item item) { return false; }
 
-    public virtual void AddToInventory(Item item) { }
+    public virtual void AddToInventory(Item item) 
+    {
+        itemsCollected.Add(item);
+        UpdateDictionary();
+
+        Debug.Log(countStack[item.itemName]);
+
+        OnInventoryChanged?.Raise(); //Review this code is still needed!
+        //Debug.Log($"{item.name} added to {category} inventory.");
+    }
+    public virtual void RemoveFromInventory(Item item) 
+    {
+        if (itemsCollected.Remove(item))
+        {
+            UpdateDictionary();
+            OnInventoryChanged?.Raise();
+        }
+    }
+
+    public virtual void ClearInventory()
+    {
+        itemsCollected.Clear();
+        UpdateDictionary();
+        OnInventoryChanged?.Raise();
+    }
+
+    public void UpdateDictionary()
+    {
+        //Populate countStack from itemsCollected list to initialize the inventory stacks if items stack
+        countStack.Clear();
+        foreach (var item in itemsCollected)
+        {
+            if (countStack.ContainsKey(item.itemName))
+                countStack[item.itemName]++;
+            else
+                countStack[item.itemName] = 1;
+        }
+    }
 }

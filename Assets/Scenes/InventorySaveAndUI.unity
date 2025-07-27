@@ -447,7 +447,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCollider: {fileID: 228815272}
   interactionSign: {fileID: 746256182}
-  boolEvent: {fileID: 0}
   listOfGameObjectEvent: {fileID: 11400000, guid: c89b41501e415c74bbc3e16ed45e62a5, type: 2}
   collectOnContact: 1
 --- !u!58 &523438046
@@ -756,11 +755,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7251092393054123350, guid: eab2777df1a8e6e4c8f816b06d681f6f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7251092393054123350, guid: eab2777df1a8e6e4c8f816b06d681f6f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.17
       objectReference: {fileID: 0}
     - target: {fileID: 7251092393054123350, guid: eab2777df1a8e6e4c8f816b06d681f6f, type: 3}
       propertyPath: m_LocalPosition.z
