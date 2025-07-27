@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e2c9d797b8a6a945ae22824a50428cd, type: 3}
-  m_Name: CherryTownStamp
+  m_Name: PineappleTownStamp
   m_EditorClassIdentifier: 
   ItemID: 
   itemName: Cherry Town Stamp
-  sprite: {fileID: -5600456472141597053, guid: 625abb9db5afe6a4ab3d252c4f55cd82, type: 3}
+  sprite: {fileID: 7367941054211865774, guid: 70e8717b5904a364e8286974ef860967, type: 3}
   itemCategory: 1
   stackable: 0
   description: 'Item function and characteristics are: '
-  stampSprite: {fileID: -5600456472141597053, guid: 625abb9db5afe6a4ab3d252c4f55cd82, type: 3}
+  stampSprite: {fileID: 7367941054211865774, guid: 70e8717b5904a364e8286974ef860967, type: 3}
   stampLocation: Map location

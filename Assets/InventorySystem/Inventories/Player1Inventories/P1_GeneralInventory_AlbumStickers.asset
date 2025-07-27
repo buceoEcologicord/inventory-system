@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85c248993cd07bf4aa49d9b259c2b9ab, type: 3}
-  m_Name: GeneralInventory_AlbumStickers
+  m_Name: P1_GeneralInventory_AlbumStickers
   m_EditorClassIdentifier: 
   inventoryName: Album Inventory
   category: 2
   OnInventoryChanged: {fileID: 11400000, guid: ebc8973bc08d0f34486a68372b1337dd, type: 2}
   itemsCollected:
   - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
-  hasItem: 1
-  currentCount: 1
   description: 'Inventory to store or record: '
   uniqueItems: 1
   unlimitedTotalItems: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemID: 
   itemName: Medium healing potion
-  sprite: {fileID: -8603789238770071204, guid: f903128d9e87a7a4cbf94279e37003c3, type: 3}
+  sprite: {fileID: -8239665472022224647, guid: 9603114b902c5ea429c768d4c39dd739, type: 3}
   itemCategory: 0
   stackable: 1
   description: heals a bit more
