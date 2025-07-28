@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryName: Stamps Inventory
   category: 1
-  OnInventoryChanged: {fileID: 11400000, guid: ebc8973bc08d0f34486a68372b1337dd, type: 2}
-  itemsCollected:
-  - {fileID: 11400000, guid: f2461959175908d4c864b12ab9991177, type: 2}
+  OnInventoryChanged: {fileID: 11400000, guid: bf60540d96a553e42be899eb054810a4, type: 2}
+  itemsCollected: []
   description: 'Inventory to store or record: '
   uniqueItems: 1
   unlimitedTotalItems: 0

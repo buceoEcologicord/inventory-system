@@ -18,6 +18,7 @@ public class SlotButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if(inventory != null) 
+            //Debug.Log($"Remove called by click on Inventory {inventory.name} at index {itemIndex}");
             inventory.RemoveFromInventory(itemIndex);
     }
 }

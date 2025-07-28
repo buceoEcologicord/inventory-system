@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryName: Album Inventory
   category: 2
-  OnInventoryChanged: {fileID: 11400000, guid: ebc8973bc08d0f34486a68372b1337dd, type: 2}
+  OnInventoryChanged: {fileID: 11400000, guid: a54596d0d7890d94f9ae448a27809a6f, type: 2}
   itemsCollected:
   - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
   description: 'Inventory to store or record: '
