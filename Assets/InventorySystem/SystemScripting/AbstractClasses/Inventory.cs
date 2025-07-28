@@ -27,7 +27,7 @@ public abstract class Inventory : ScriptableObject
 
     /// <summary>
     /// This is a virtual, when called will actually call the childs method.
-    /// This is used to be able to call the specific inventory type method bu calling the parent,
+    /// This is used to be able to call the specific inventory type method by calling the parent,
     /// (eg. GeneralInventory.AddToInventory())
     /// that way scripts only need to reference the Inventory class but will execute the method of the corresponding child class from where they are calling
     /// </summary>

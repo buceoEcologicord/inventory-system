@@ -1,7 +1,10 @@
 Pending:
 - Inventory UI
- -- When more than one type of object in inventory:
-Adds a slot per every count until item count and doesn't erease it. Example if there are 4 items of Rum adds: Rum1, Rum2, Rum3, Rum4. Also the buttons are not directly related to the object
+ -- Al parecer puedo quitar todos los listeners type Item ya que los objetos solo se están agregando por AddItemFromList() y nunca directamente desde AddItemToCorrectInventory()
+ -- Sí Probé quitar todos los listeners type item y funciona bien
+	  -- QUitar esa parte de las instrucciones y limpiar el código del Wrapper ya que no es necesario usar ese evento desede el inspector ni desde ningún ladopor el momento
+
+
 
 - Savesystem complete review pending:
 - (Revisar saveHandler) En build guarda el json solo si le doy al botón, no cada vez que colecta un item.

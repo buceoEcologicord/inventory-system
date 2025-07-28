@@ -96,3 +96,4 @@ Create Shared Inventories:
 - Add the following objects per each Player you want to update here:
   -- ItemCollector
   -- 
+- The OnInventoryChangedEventListener debe usar el Event que está asignado al Scriptable Object de Inventario ???????

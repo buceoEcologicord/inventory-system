@@ -29,6 +29,16 @@ public class InventoryManager : MonoBehaviour
         }
             collectiblesInRange.Clear();
     }
+
+    /// <summary>
+    /// Wrapper class to allow appearance in Inspector as Unity Event Response 
+    /// because Unity only accepts void return types for its UnityEvents
+    /// </summary>    
+    public void AddItemToCorrectInventory_VoidWrapper(Item item) // REVISAR SI ELIMINAR, al parecer no se usa este método para agregar sino AddItemsfromList()
+    {
+        AddItemToCorrectInventory(item);
+    }
+
     public bool AddItemToCorrectInventory(Item item)
     {
         //Gets the correct Inventory from the inventories list of this manager based on a match of inventory/item category

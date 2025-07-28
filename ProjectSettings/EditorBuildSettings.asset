@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/InventorySaveAndUI.unity
+    path: Assets/Scenes/SharedInventoryUITest.unity
     guid: 706df1e901982794a89c0886d393f5d5
   - enabled: 1
     path: Assets/Scenes/InventorySystem.unity
