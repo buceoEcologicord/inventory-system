@@ -1,0 +1,224 @@
+sequenceDiagram
+    autonumber
+
+    %% PARTICIPANTS (safe labels)
+    actor Player
+    participant IC as ItemCollector
+    participant LG as ListOfGOEvent
+    participant Lsn as GOListListener
+    participant IM as InventoryManager
+    participant GO as CollectibleGO
+    participant CI as CollectibleItem
+    participant IT as ItemSO
+    participant INV as InventoryBase
+    participant GI as GeneralInventory
+    participant VEV as OnInventoryChanged
+    participant UI as InventoryUIManager
+    participant SB as SlotButton
+    participant PF as InventorySlotPrefab
+    participant TMP as TMPText
+
+    %% 0) SCRIPTABLEOBJECT LIFECYCLE & BOOTSTRAP
+    rect rgb(245,245,245)
+    Note over GI: ScriptableObject activation and internal data rebuild
+    GI->>GI: OnEnable()
+    GI->>GI: hideFlags = DontUnloadUnusedAsset
+    GI->>INV: UpdateDictionary()
+    activate INV
+    Note over INV: If any unwanted change detected, rebuild (I.e. items removed from inspector)
+    INV->>INV: Create temp list: countUniqueItems
+    loop For each item in itemsCollected
+        INV->>INV: If not in countUniqueItems, add
+    end
+    alt countStack.Count != countUniqueItems.Count
+        INV->>INV: countStack.Clear()
+        INV->>INV: stackOrder.Clear()
+        loop For each item in itemsCollected
+            INV->>INV: AddItemToStack(item.itemName)
+            alt itemName exists in countStack
+                INV->>INV: ++countStack[itemName]
+            else new itemName
+                INV->>INV: countStack[itemName] = 1
+                INV->>INV: stackOrder.Add(itemName)
+            end
+        end
+    else no changes needed
+        INV-->>INV: skip rebuild
+    end
+    deactivate INV
+    end
+
+    %% 1) ADDING ITEMS (TWO ENTRY PATHS: EVENT-DRIVEN PICKUP OR DIRECT API CALL)
+    rect rgb(235,245,255)
+    par Event-driven pickup
+        Player->>IC: OnTriggerEnter2D(collision)
+        IC->>GO: GetComponentInChildren(CollectibleItem)
+        alt Has CollectibleItem
+            alt collectOnContact == true
+                IC->>LG: Raise(collectibleGameObjects)
+            else Wait for interaction
+                IC->>IC: interactionSign.SetActive(true)
+                Player->>IC: OnInteract()
+                IC->>LG: Raise(collectibleGameObjects)
+            end
+        else No collectible
+            IC-->>IC: Ignore
+        end
+
+        LG-->>Lsn: OnEventRaised(list)
+        Lsn-->>IM: AddItemsFromList(list)
+
+        loop For i from end to start (safe remove)
+            IM->>GO: GetComponentInChildren(CollectibleItem)
+            GO-->>IM: CI
+            IM->>CI: Get Item()
+            CI-->>IM: IT
+            IM->>INV: Find inventory by IT.itemCategory
+            alt Found GeneralInventory
+                IM->>GI: TryAddToInventory(IT)
+                activate GI
+                Note over GI: Evaluate constraints: hasStack, currentStack, totalItems, totalSlots, underTotalItemLimit, underSlotLimit, canExtendStack, canCreateNewStack
+                alt !underTotalItemLimit
+                    GI-->>IM: false
+                else itemsStack == true
+                    alt uniqueItems && hasStack
+                        GI-->>IM: false
+                    else hasStack && canExtendStack
+                        GI->>INV: AddToInventory(IT)
+                        GI-->>IM: true
+                    else !hasStack && canCreateNewStack
+                        GI->>INV: AddToInventory(IT)
+                        GI-->>IM: true
+                    else Capacity or limits prevent add
+                        GI-->>IM: false
+                    end
+                else itemsStack == false
+                    alt uniqueItems && hasStack
+                        GI-->>IM: false
+                    else underSlotLimit
+                        GI->>INV: AddToInventory(IT)
+                        GI-->>IM: true
+                    else No free slot
+                        GI-->>IM: false
+                    end
+                end
+                deactivate GI
+
+                alt TryAddToInventory returned true
+                    activate INV
+                    Note over INV: AddToInventory(IT): itemsCollected.Add, AddItemToStack, Raise OnInventoryChanged
+                    INV->>INV: itemsCollected.Add(IT)
+                    INV->>INV: AddItemToStack(IT.itemName)
+                    alt Stack exists
+                        INV->>INV: ++countStack[IT.itemName]
+                    else New stack
+                        INV->>INV: countStack[IT.itemName] = 1
+                        INV->>INV: stackOrder.Add(IT.itemName)
+                    end
+                    INV->>VEV: Raise()
+                    deactivate INV
+
+                    IM->>GO: Destroy(gameObject)
+                else TryAddToInventory returned false
+                    IM->>IM: Skip destroy, log rejection
+                end
+            else No inventory found
+                IM->>IM: Warn: Missing inventory for category
+            end
+        end
+    and Direct API call
+        Note over Player,GI: Any system can call TryAddToInventory directly
+        Player->>GI: TryAddToInventory(IT)
+        activate GI
+        GI->>GI: Evaluate same constraints as above
+        alt Accepted
+            GI->>INV: AddToInventory(IT)
+            INV->>INV: itemsCollected.Add(IT)
+            INV->>INV: AddItemToStack(IT.itemName)
+            INV->>VEV: Raise()
+            GI-->>Player: true
+        else Rejected
+            GI-->>Player: false
+        end
+        deactivate GI
+    end
+    end
+
+    %% 2) UI REACTION TO OnInventoryChanged (with updated UpdateInventoryUI)
+    rect rgb(250,240,230)
+    VEV-->>UI: OnInventoryChanged.Invoke()
+    activate UI
+    UI->>INV: inventory.UpdateDictionary()  %% proactively reconcile structures
+    UI->>INV: itemsCollected = inventory.itemsCollected
+    alt inventory.itemsStack == true
+        UI->>UI: RefreshUI() (clear previous)
+        loop For each itemName in inventory.stackOrder
+            UI->>UI: target = itemsCollected.Find(n == itemName)
+            UI->>UI: index = itemsCollected.IndexOf(target)
+            UI->>PF: Instantiate slot under grid
+            UI->>PF: Set icon = target.icon
+            UI->>PF: Set SlotButton.itemIndex = index
+            UI->>TMP: Set text = inventory.countStack[itemName]
+        end
+    else Non-stacking view
+        UI->>UI: RefreshUI()
+        loop For i, item in itemsCollected
+            UI->>PF: Instantiate slot under grid
+            UI->>PF: Set icon = item.icon
+            UI->>PF: Set SlotButton.itemIndex = i
+        end
+    end
+    deactivate UI
+    end
+
+    %% 3) REMOVING AN ITEM BY INDEX FROM UI
+    rect rgb(240,250,240)
+    Player->>SB: OnPointerClick()
+    SB->>UI: Get inventory reference
+    alt Inventory found
+        SB->>INV: RemoveFromInventory(itemIndex)
+        alt itemIndex valid
+            INV->>INV: RemoveItemFromStack(itemsCollected[itemIndex].itemName)
+            alt Count reaches 0
+                INV->>INV: countStack.Remove(itemName)
+                INV->>INV: stackOrder.Remove(itemName)
+            else Decrement only
+                INV->>INV: --countStack[itemName]
+            end
+            INV->>INV: itemsCollected.RemoveAt(itemIndex)
+            INV->>VEV: Raise()
+        else Invalid index
+            INV-->>SB: No-op
+        end
+    else No inventory
+        SB-->>Player: No-op
+    end
+    end
+
+    %% 4) CLEARING THE INVENTORY
+    rect rgb(240,240,255)
+    Player->>INV: ClearInventory()
+    INV->>INV: itemsCollected.Clear()
+    INV->>INV: countStack.Clear()
+    INV->>INV: stackOrder.Clear()
+    INV->>VEV: Raise()
+    end
+
+    %% 5) MANUAL DICTIONARY REBUILD (POST-LOAD / EDITOR SYNC) - same as OnEnable
+    rect rgb(255,248,230)
+    Note over Player,INV: Reconcile internal structures with saved itemsCollected
+    Player->>INV: UpdateDictionary()
+    INV->>INV: Create temp list: countUniqueItems
+    loop For each item in itemsCollected
+        INV->>INV: If not in countUniqueItems, add
+    end
+    alt countStack.Count != countUniqueItems.Count
+        INV->>INV: countStack.Clear()
+        INV->>INV: stackOrder.Clear()
+        loop For each item in itemsCollected
+            INV->>INV: AddItemToStack(item.itemName)
+        end
+    else no changes needed
+        INV-->>INV: skip rebuild
+    end
+    end

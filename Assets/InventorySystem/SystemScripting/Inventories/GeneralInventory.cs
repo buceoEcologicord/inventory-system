@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -24,20 +22,19 @@ public class GeneralInventory : Inventory
     {
         //Avoids SO information to be lost when changing between scenes. If the next scene doesn't use the SO unity destroys the changes to it in the build
         hideFlags = HideFlags.DontUnloadUnusedAsset;
-
         UpdateDictionary();
-    }    
+
+    }
+
+
+
 
     public override bool TryAddToInventory(Item item)
     {
-        UpdateDictionary();
 
         bool hasStack = countStack.ContainsKey(item.itemName);
         int currentStack = hasStack ? countStack[item.itemName] : 0;
-        //if (hasStack) //To debug countStack
-        //{
-        //    Debug.Log("countStack in GI: " + countStack[item.itemName]);
-        //}
+        
         int totalItems = itemsCollected.Count;
         int totalSlots = itemsStack ? countStack.Count : itemsCollected.Count;       
 

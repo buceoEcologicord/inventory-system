@@ -15,12 +15,43 @@ MonoBehaviour:
   inventoryName: Album Inventory
   category: 2
   OnInventoryChanged: {fileID: 11400000, guid: bf60540d96a553e42be899eb054810a4, type: 2}
-  itemsCollected: []
+  itemsCollected:
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  - {fileID: 11400000, guid: a95ae75d0204b4a49878d974bc7b66c6, type: 2}
+  stackOrder:
+  - Yolo Sticker
   description: 'Inventory to store or record: '
-  uniqueItems: 1
+  uniqueItems: 0
   unlimitedTotalItems: 0
   itemsStack: 0
   unlimitedStack: 0
-  maxTotalSlots: 20
+  maxTotalSlots: 40
   itemStackLimit: 20
   maxTotalItems: 100

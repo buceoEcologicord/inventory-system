@@ -18,7 +18,11 @@ public abstract class Inventory : ScriptableObject
     [SerializeField] public VoidEvent OnInventoryChanged; // "Raised whenever Add/Remove/Clear runs"    
     [SerializeField] public List<Item> itemsCollected = new List<Item>();
 
+    //Keeps track of amount of items stacked in a slot
     public Dictionary<string, int> countStack = new Dictionary<string, int>();
+
+    //Keeps track of order of stacks to display
+    public List<string> stackOrder = new List<string>();
 
 
     [TextArea(3, 10)]
@@ -36,7 +40,10 @@ public abstract class Inventory : ScriptableObject
     public virtual void AddToInventory(Item item) 
     {
         itemsCollected.Add(item);
-        UpdateDictionary();
+        
+
+        AddItemToStack(item.itemName); //Add item to countStack dictionary to keep track of how many items of the same type are in the inventory
+        
 
         //Debug.Log(countStack[item.itemName]);
 
@@ -47,8 +54,10 @@ public abstract class Inventory : ScriptableObject
     {
         if (itemIndex >= 0 && itemIndex < itemsCollected.Count  )
         {
+            
+            
+            RemoveItemFromStack(itemsCollected[itemIndex].itemName);
             itemsCollected.RemoveAt(itemIndex);
-            UpdateDictionary();
             OnInventoryChanged?.Raise();
         }
     }
@@ -56,20 +65,71 @@ public abstract class Inventory : ScriptableObject
     public virtual void ClearInventory()
     {
         itemsCollected.Clear();
-        UpdateDictionary();
+        countStack.Clear();
+        stackOrder.Clear();
         OnInventoryChanged?.Raise();
     }
-
+    /// <summary>
+    /// Compares itemsCollected Unique items with stack, if any difference 
+    /// it rebuilds full countStack and stackOrder to avoid errors loading 
+    /// inventory, maybe caused by modifying itemsCollected directly 
+    /// (for example: in the editor)
+    /// </summary>
     public void UpdateDictionary()
     {
-        //Populate countStack from itemsCollected list to initialize the inventory stacks if items stack
-        countStack.Clear();
+        List<Item> countUniqueItems = new List<Item>();
         foreach (var item in itemsCollected)
         {
-            if (countStack.ContainsKey(item.itemName))
-                countStack[item.itemName]++;
-            else
-                countStack[item.itemName] = 1;
+            if (!countUniqueItems.Contains(item))
+                countUniqueItems.Add(item);
+        }
+        if (countStack.Count != countUniqueItems.Count )
+        {
+            // Clear the countStack and stackOrder dictionary before updating it
+            countStack.Clear();
+            stackOrder.Clear();
+            // Populate the countStack and stackOrder dictionary with the items collected
+            foreach (Item item in itemsCollected)
+            {
+                AddItemToStack(item.itemName);
+            }
+        }         
+    }
+
+    /// <summary>
+    /// Adds an item to the countStack dictionary or increments the count 
+    /// if it already exists. Also updates the stackOrder list 
+    /// to maintain order of UI display.
+    /// </summary>
+
+    public void AddItemToStack(string itemName)
+    {
+        if(countStack.ContainsKey(itemName))
+        {
+            countStack[itemName]++;
+        }
+        else
+        {
+            countStack[itemName] = 1;
+            stackOrder.Add(itemName);
         }
     }
+
+    /// <summary>
+    /// Removes an item from the countStack dictionary, decrementing the count or 
+    /// removing the entry if it reaches zero. Also updates the stackOrder list 
+    /// to maintain order of UI display.
+    /// </summary>
+    public void RemoveItemFromStack(string itemName)
+    {
+        if (countStack.ContainsKey(itemName))
+        {
+            countStack[itemName]--;
+            if (countStack[itemName] <= 0)
+            {
+                countStack.Remove(itemName);
+                stackOrder.Remove(itemName);
+            }
+        }
+    }    
 }
