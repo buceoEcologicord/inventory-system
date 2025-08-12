@@ -3,14 +3,18 @@ using UnityEngine;
 
 /// <summary>
 /// Add (future: or remove) items to inventory received through events and destroy the gameObjects if applies
+/// 
+/// REMEMBER: Add ListOfGameObjectsListener and setup when event detected to call AddItemsFromList()
 /// </summary>
- 
 
-// Set itemEventListener and boolEventListener to activate all functionalities
+
+// Set itemEventListener and
+// Listener to activate all functionalities
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private List<Inventory> inventories = new List<Inventory>();    
 
+    // Used to add items via Event System, using ListOfGameObjectsEvent to add items in bulk in case many objects are in range
     public void AddItemsFromList(List<GameObject> collectiblesInRange)
     {
 
@@ -20,15 +24,27 @@ public class InventoryManager : MonoBehaviour
             if(AddItemToCorrectInventory(collectiblesInRange[i].GetComponentInChildren<CollectibleItem>().collectibleItem))
             {
                 Destroy(collectiblesInRange[i]);
-
             }
 
         }
             collectiblesInRange.Clear();
     }
+
+    /// <summary>
+    /// Wrapper class to allow appearance in Inspector as Unity Event Response 
+    /// because Unity only accepts void return types for its UnityEvents
+    /// </summary>    
+    public void AddItemToCorrectInventory_VoidWrapper(Item item) // REVISAR SI ELIMINAR, al parecer no se usa este método para agregar sino AddItemsfromList()
+    {
+        AddItemToCorrectInventory(item);
+    }
+
     public bool AddItemToCorrectInventory(Item item)
     {
+        //Gets the correct Inventory from the inventories list of this manager based on a match of inventory/item category
         Inventory target = inventories.Find(inv => inv.category == item.itemCategory);
+
+        //If item category matches an inventory category from the list of inventories it adds item to it, else it doesn't
         if (target != null)
         {
             return target.TryAddToInventory(item);

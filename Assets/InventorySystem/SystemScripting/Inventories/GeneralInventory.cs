@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +11,7 @@ public class GeneralInventory : Inventory
 {
     [SerializeField] private bool uniqueItems = false;
     [SerializeField] private bool unlimitedTotalItems = false;
-    [SerializeField] private bool itemsStack = true;
+    [SerializeField] public bool itemsStack = true;
     [SerializeField] private bool unlimitedStack = false;
     [SerializeField] private int maxTotalSlots = 20;
     [SerializeField] private int itemStackLimit = 20;
@@ -23,165 +22,80 @@ public class GeneralInventory : Inventory
     {
         //Avoids SO information to be lost when changing between scenes. If the next scene doesn't use the SO unity destroys the changes to it in the build
         hideFlags = HideFlags.DontUnloadUnusedAsset;
-
         UpdateDictionary();
+
     }
 
-    public override void AddToInventory(Item item)
-    {
-        itemsCollected.Add(item);
-        countStack[item.itemName] = currentCount + 1;
-        Debug.Log($"{item.name} added to {category} inventory.");
-    }
+
+
 
     public override bool TryAddToInventory(Item item)
     {
-        UpdateDictionary();
 
-        hasItem = countStack.ContainsKey(item.itemName);
-        currentCount = hasItem ? countStack[item.itemName] : 0;
-                
-        //Debug.Log($"Current count of {item.itemName}: {currentCount}");
+        bool hasStack = countStack.ContainsKey(item.itemName);
+        int currentStack = hasStack ? countStack[item.itemName] : 0;
+        
+        int totalItems = itemsCollected.Count;
+        int totalSlots = itemsStack ? countStack.Count : itemsCollected.Count;       
 
-        // Adds all items if total items are unlimited, as long as it's not unique items and item is already collected
-        if (unlimitedTotalItems)
+        bool underTotalItemLimit = unlimitedTotalItems || totalItems < maxTotalItems;
+        bool underSlotLimit = unlimitedTotalItems || totalSlots < maxTotalSlots;
+        bool canExtendStack = hasStack && (unlimitedStack || currentStack < itemStackLimit);
+        bool canCreateNewStack = !hasStack && underSlotLimit;
+
+        // Reject if we’ve already hit the total-item limit
+        if (!underTotalItemLimit)
+            return false;
+
+        if (itemsStack)
         {
-            // Check if item is unique and already exists in the inventory or if the inventory has no limit
-            if ((uniqueItems && !hasItem))
-            {
-                // Add item and stack
-                AddToInventory(item);
-                return true;
-            }
-            else if (!uniqueItems)
-            {
-                // Add item and stack
-                AddToInventory(item);
-                return true;
-            }
-
-         Debug.LogWarning("Not added to inventory: Is repeated Unique");
-         return false;
-
-        }        
-        else if (itemsCollected.Count < maxTotalItems) // Check if inventory is not full
-        {
-            if (itemsStack)
-            {
-                if (uniqueItems && !hasItem)
-                {
-                    if (unlimitedStack && countStack.Count < maxTotalSlots)
-                    {
-                        // Add item and stack
-                        AddToInventory(item);
-                        return true;
-                    }
-                    else if (unlimitedStack && countStack.Count == maxTotalSlots && countStack.ContainsKey(item.itemName))
-                    {
-                        // Add item and stack
-                        AddToInventory(item);
-                        return true;
-                    }
-                    else if (currentCount < itemStackLimit && countStack.Count < maxTotalSlots)
-                    {
-                        // Add item and stack
-                        AddToInventory(item);
-                        return true;
-                    }
-                    else if (currentCount < itemStackLimit && countStack.Count == maxTotalSlots && countStack.ContainsKey(item.itemName))
-                    {
-                        // Add item and stack
-                        AddToInventory(item);
-                        return true;
-                    }
-
-                    Debug.LogWarning("Not added to inventory: Is repeated Unique or slots are full, or stacks are full or inventory limit reached");
-                    return false; 
-
-                }
-                else if (!uniqueItems)
-                {
-                    if (unlimitedStack && countStack.Count < maxTotalSlots)
-                    {
-                        // Add item and stack
-                        AddToInventory(item);
-                        return true;
-                    }
-                    else if (unlimitedStack && countStack.Count == maxTotalSlots && countStack.ContainsKey(item.itemName))
-                    {
-                        // Add item and stack
-                        AddToInventory(item);
-                        return true;
-                    }
-                    else if (currentCount < itemStackLimit && countStack.Count < maxTotalSlots)
-                    {
-                        // Add item and stack
-                        AddToInventory(item);
-                        return true;
-                    }
-                    else if (currentCount < itemStackLimit && countStack.Count == maxTotalSlots && countStack.ContainsKey(item.itemName))
-                    {
-                        // Add item and stack
-                        AddToInventory(item);
-                        return true;
-                    }
-                }
-
-                Debug.LogWarning("Not added to inventory: Slots are full, or stacks are full or inventory limit reached");
+            // Unique-stacks only allow one instance
+            if (uniqueItems && hasStack)
                 return false;
 
-            }
-            else if (itemsCollected.Count < maxTotalSlots)
+            // Try to add into an existing stack
+            if (hasStack && canExtendStack)
             {
-                if (uniqueItems && !hasItem)
-                {
-                    // Add item, also add in dictionary even if it doesn't stack
-                    AddToInventory(item);
-                    return true;
-                }
-                else if (!uniqueItems)
-                {
-                    // Add item, also add in dictionary even if it doesn't stack
-                    AddToInventory(item);
-                    return true;
-                }
+                //Debug.Log("item countStack in GI before AddToInventory: " + countStack[item.itemName]);
+
+                AddToInventory(item);
+                //Debug.Log("item countStack in GI after AddToInventory: " + countStack[item.itemName]);
+
+                //Debug.Log("hasStack && canExtendStack");
+                return true;
             }
 
-            Debug.LogWarning("Not added to inventory: Repeated Unique item or Slots are full");
-            return false;
+            // Or open a brand-new stack
+            if (!hasStack && canCreateNewStack)
+            {
+                AddToInventory(item);
+                //Debug.Log("!hasStack && canCreateNewStack");
+                return true;
+            }
 
-        }
-        else
-        {
-            Debug.LogWarning("Item can't be added to Inventory, it may have full slots, full stack of that item or is a Unique inventory and the item is already collected");
+            // Otherwise, no valid move
             return false;
         }
-
-        
-    }
-
-    void UpdateDictionary()
-    {
-        //Populate countStack from itemsCollected list to initialize the inventory stacks if items stack
-        countStack.Clear();
-        foreach (var item in itemsCollected)
+        else // no stacking: each item consumes one slot
         {
-            if (countStack.ContainsKey(item.itemName))
-                countStack[item.itemName]++;
-            else
-                countStack[item.itemName] = 1;
+            // Unique items only allow one slot per type
+            if (uniqueItems && hasStack)
+                return false;
 
-            if (countStack.TryGetValue(item.itemName, out int stackCount))
+            // Need an empty slot to add
+            if (underSlotLimit)
             {
-                Debug.Log($"{item.itemName} = {stackCount}");
-            }
-            else
-            {
-                Debug.LogWarning($"Item '{item.itemName}' not found in countStack.");
+                AddToInventory(item);
+                //Debug.Log("underSlotLimit");
+                //Debug.Log($"UnlimitedTotalItems {unlimitedTotalItems}");
+                //Debug.Log($"current slots {totalSlots}, max slots {maxTotalSlots}");
+
+                return true;
             }
 
+            return false;
         }
 
-
     }
+
 }

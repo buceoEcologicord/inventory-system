@@ -1,5 +1,14 @@
 Pending:
-- Event Try collect + Inventory added to avoid destruction of items not added to inv
+- Inventory UI
+ -- Al parecer puedo quitar todos los listeners type Item ya que los objetos solo se están agregando por AddItemFromList() y nunca directamente desde AddItemToCorrectInventory()
+ -- Sí Probé quitar todos los listeners type item y funciona bien
+	  -- QUitar esa parte de las instrucciones y limpiar el código del Wrapper ya que no es necesario usar ese evento desede el inspector ni desde ningún ladopor el momento
+
+
+
+- Savesystem complete review pending:
+- (Revisar saveHandler) En build guarda el json solo si le doy al botón, no cada vez que colecta un item.
+- (Revisar saveHandler) Al abrir el build se limpia el json. 
 - Remove items from inventory
 
 - Auto Item type generator (Potion, weapon, stamp)

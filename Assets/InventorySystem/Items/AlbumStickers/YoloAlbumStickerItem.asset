@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 525e8535fcd8e6942b91261ec94be37d, type: 3}
   m_Name: YoloAlbumStickerItem
   m_EditorClassIdentifier: 
+  ItemID: 
   itemName: Yolo Sticker
-  sprite: {fileID: 0}
+  sprite: {fileID: -1802293880874766931, guid: d0068b8c3831d3b418549e2023fce2e7, type: 3}
   itemCategory: 2
   stackable: 0
   description: 'Item function and characteristics are: '
-  albumStickerSprite: {fileID: 0}
+  albumStickerSprite: {fileID: -1802293880874766931, guid: d0068b8c3831d3b418549e2023fce2e7, type: 3}
